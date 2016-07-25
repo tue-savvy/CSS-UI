@@ -88,6 +88,17 @@
     }
 
     if (height != view.frame.size.height || width != view.frame.size.width) {
+        //Update view size for Autolayout view
+        for (NSLayoutConstraint *constraint in view.constraints) {
+            if (constraint.firstAttribute == NSLayoutAttributeHeight &&
+                constraint.secondItem == nil) {
+                constraint.constant = height;
+            } else if (constraint.firstAttribute == NSLayoutAttributeWidth &&
+                       constraint.secondItem == nil) {
+                constraint.constant = width;
+            }
+        }
+        
         view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, width, height);
     }
 }
